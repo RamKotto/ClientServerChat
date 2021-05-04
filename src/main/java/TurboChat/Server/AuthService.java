@@ -1,4 +1,4 @@
-package SuperChat.Server;
+package TurboChat.Server;
 
 public interface AuthService {
     void start();

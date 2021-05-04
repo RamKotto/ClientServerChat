@@ -1,4 +1,4 @@
-package SuperChat.Server;
+package TurboChat.Server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

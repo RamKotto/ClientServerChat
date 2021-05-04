@@ -1,4 +1,4 @@
-package SuperChat.Client;
+package TurboChat.Client;
 
 import javax.swing.*;
 import java.awt.*;
