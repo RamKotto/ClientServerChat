@@ -1,4 +1,4 @@
-package ChatVersion1.Server;
+package SuperChat.Server;
 
 public class ServerApp {
     public static void main(String[] args) {

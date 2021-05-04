@@ -1,4 +1,4 @@
-package ChatVersion1.Server;
+package SuperChat.Server;
 
 public interface AuthService {
     void start();

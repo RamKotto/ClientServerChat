@@ -1,4 +1,4 @@
-package ChatVersion1.Client;
+package SuperChat.Client;
 
 import javax.swing.*;
 import java.awt.*;

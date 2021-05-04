@@ -1,4 +1,4 @@
-package ChatVersion1.Server;
+package SuperChat.Server;
 
 import java.util.ArrayList;
 import java.util.List;
