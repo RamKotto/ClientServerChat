@@ -1,4 +1,4 @@
-package SuperChat.Server;
+package TurboChat.Server;
 
 public class ServerApp {
     public static void main(String[] args) {
