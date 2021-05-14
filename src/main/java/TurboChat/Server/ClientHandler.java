@@ -4,6 +4,10 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ClientHandler {
     private MyServer myServer;
@@ -68,16 +72,20 @@ public class ClientHandler {
         while (true) {
             String strFromClient = in.readUTF();
             System.out.println("from " + name + ": " + strFromClient);
-            if (strFromClient.equals("/end")) {
-                return;
+            if (strFromClient.startsWith("/")) {
+                if (strFromClient.equals("/end")) {
+                    break;
+                }
+                if (strFromClient.startsWith("/w ")) {
+                    String[] tokens = strFromClient.split("\\s");
+                    String nick = tokens[1];
+                    String msg = strFromClient.substring(4 + nick.length());
+                    myServer.sendMsgToClient(this, nick, msg);
+                }
+                continue;
             }
-            if (strFromClient.startsWith("/w")) {
-                String nick = (strFromClient.split("\\s")[1]);
-                System.out.println("from " + name + " to " + nick + " : " + strFromClient);
-                myServer.privateMsg(strFromClient, nick);
-            } else {
-                myServer.broadcastMsg(name + ": " + strFromClient);
-            }
+            myServer.broadcastMsg(name + ": " + strFromClient);
+
         }
     }
 
