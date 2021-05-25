@@ -4,6 +4,7 @@ package TurboChat.Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,8 @@ public class MyServer {
             }
         } catch (IOException e) {
             System.out.println("Server side error!");
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Auth error!");
         } finally {
             if (authService != null) {
                 authService.stop();
