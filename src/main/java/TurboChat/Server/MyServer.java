@@ -21,14 +21,21 @@ public class MyServer {
 
     public MyServer() {
         try (ServerSocket server = new ServerSocket(PORT)) {
+//            // сокетный таймаут
+//            server.setSoTimeout(5000);
             authService = new BaseAuthService();
             authService.start();
             clients = new ArrayList<>();
             while (true) {
                 System.out.println("Server waiting for connection...");
-                Socket socket = server.accept();
-                System.out.println("Client has connected!");
-                new ClientHandler(this, socket);
+                try {
+                    Socket socket = server.accept();
+                    new ClientHandler(this, socket);
+                    System.out.println("Client has connected!");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("Клени не подключился за таймаут");
+                }
             }
         } catch (IOException e) {
             System.out.println("Server side error!");
