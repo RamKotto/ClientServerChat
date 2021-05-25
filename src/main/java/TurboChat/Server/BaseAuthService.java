@@ -1,5 +1,6 @@
 package TurboChat.Server;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,13 @@ public class BaseAuthService implements AuthService{
             this.pass = pass;
             this.nick = nick;
         }
+    }
+    // тест
+    private static class UsersBase {
+        private static Connection conn;
+        private static String login;
+        private static String pass;
+        private static String nick;
     }
 
     private List<Entry> entries;
