@@ -1,5 +1,8 @@
 package TurboChat.Server;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,6 +13,8 @@ public class ClientHandler {
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
+
+    private static final Logger LOGGER = LogManager.getLogger(ClientHandler.class);
 
     private String name;
 
@@ -29,7 +34,8 @@ public class ClientHandler {
                     authentication();
                     readMessages();
                 } catch (IOException e){
-                    e.printStackTrace();
+//                    e.printStackTrace();
+                    LOGGER.error("Клиент отключен.");
                 } finally {
                     closeConnection();
                 }
@@ -51,6 +57,7 @@ public class ClientHandler {
                         sendMsg("/authok " + nick);
                         name = nick;
                         myServer.broadcastMsg(name + " has entered to chat.");
+                        LOGGER.info("Клиент " + name + " вошел в чат.");
                         myServer.subscribe(this);
                         return;
                     } else {
