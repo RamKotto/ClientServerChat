@@ -1,9 +1,14 @@
 package TurboChat.Server;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.*;
 
 public class BaseAuthService implements AuthService {
+
+    private static final Logger LOGGER = LogManager.getLogger(BaseAuthService.class);
 
     public final String USER_TABLE = "users";
     public final String LOGIN = "login";
@@ -55,12 +60,14 @@ public class BaseAuthService implements AuthService {
 
     @Override
     public void start() {
-        System.out.println("Auth service has run.");
+//        System.out.println("Auth service has run.");
+        LOGGER.info("Сервисы авторизации запущены.");
     }
 
     @Override
     public void stop() {
-        System.out.println("Auth service has stopped.");
+//        System.out.println("Auth service has stopped.");
+        LOGGER.info("Сервисы авторизации остановлены.");
     }
 
     // Метод, для получения ника по логину и паролю
@@ -78,7 +85,8 @@ public class BaseAuthService implements AuthService {
                 return nick;
             }
         } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+            LOGGER.warn("Попытка получения Никнейма по логину и паролю провалена.");
+//            e.printStackTrace();
         }
         return null;
     }

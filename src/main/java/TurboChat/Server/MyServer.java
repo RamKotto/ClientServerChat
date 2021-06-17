@@ -1,5 +1,8 @@
 package TurboChat.Server;
 
+// импорт для log4j2
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -10,7 +13,8 @@ import java.util.List;
 
 public class MyServer {
     private final int PORT = 8189;
-
+    // инициализируем логгер log4j2
+    private static final Logger LOGGER = LogManager.getLogger(MyServer.class);
     private List<ClientHandler> clients;
     private AuthService authService;
 
@@ -28,20 +32,25 @@ public class MyServer {
             authService.start();
             clients = new ArrayList<>();
             while (true) {
-                System.out.println("Server waiting for connection...");
+//                System.out.println("Server waiting for connection...");
+                LOGGER.info("Сервер ожидает подключения.");
                 try {
                     Socket socket = server.accept();
                     new ClientHandler(this, socket);
-                    System.out.println("Client has connected!");
+//                    System.out.println("Client has connected!");
+                    LOGGER.info("Клиент подключен");
                 } catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.println("Клени не подключился за таймаут");
+//                    e.printStackTrace();
+//                    System.out.println("Клиент не подключился");
+                    LOGGER.warn("Не удалось получить доступ на сервер.");
                 }
             }
         } catch (IOException e) {
-            System.out.println("Server side error!");
+//            System.out.println("Server side error!");
+            LOGGER.error("Ошибка на стороне сервера.");
         } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("Auth error!");
+//            System.out.println("Auth error!");
+            LOGGER.error("Ошибка сервиса авторизации.");
         } finally {
             if (authService != null) {
                 authService.stop();

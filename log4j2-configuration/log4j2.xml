@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration>
+    <!--Это Property означает, что все логи будут храниться в корневой директории, в папке "logs"-->
+    <Properties>
+        <Property name="basePath">logs</Property>
+    </Properties>
+
+    <!--Файловый и консольный аппендеры-->
+    <Appenders>
+        <File name="FILE" fileName="${basePath}/logfile.log" append="true">
+            <PatternLayout pattern="%-5p %d{yyyy-MM-dd HH:mm:ss} [%t] %C (%F:%L) - %m%n" />
+        </File>
+
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%-5p %d{yyyy-MM-dd HH:mm:ss} [%t] %C (%F:%L) - %m%n" />
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <!--Логгер для пакета-->
+        <Logger name="TurboChat.Server" level="debug" />
+        <!--Дефолтный логгер-->
+        <Root level="info">
+            <AppenderRef ref="STDOUT" />
+            <AppenderRef ref="FILE" />
+        </Root>
+    </Loggers>
+</Configuration>
